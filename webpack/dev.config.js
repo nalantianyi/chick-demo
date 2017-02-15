@@ -31,7 +31,7 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({__SERVER__: false}),
-        new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools').development())
+        new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools')).development()
     ],
     module: {
         loaders: [

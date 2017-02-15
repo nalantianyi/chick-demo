@@ -16,22 +16,22 @@ var config = {
                 else {
                     return regex.test(module.name)
                 }
-            }
-        },
-        path: function (module, options, log) {
-            if (options.development) {
-                return WebpackIsomorphicToolsPlugin.style_loader_path_extractor(module, options, log);
-            }
-            else {
-                return module.name;
-            }
-        },
-        parser: function (module, options, log) {
-            if (options.development) {
-                return WebpackIsomorphicToolsPlugin.css_modules_loader_parser(module, options, log);
-            }
-            else {
-                return module.name;
+            },
+            path: function (module, options, log) {
+                if (options.development) {
+                    return WebpackIsomorphicToolsPlugin.style_loader_path_extractor(module, options, log);
+                }
+                else {
+                    return module.name;
+                }
+            },
+            parser: function (module, options, log) {
+                if (options.development) {
+                    return WebpackIsomorphicToolsPlugin.css_modules_loader_parser(module, options, log);
+                }
+                else {
+                    return module.name;
+                }
             }
         }
     }
