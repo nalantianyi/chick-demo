@@ -47,6 +47,7 @@ app.use((req, res) => {
         hydrateOnClient();
         return;
     }
+    console.log(req.url);
     match({routes, location: req.url}, (err, redirect, renderProps) => {
         if (redirect) {
             res.redirect(redirect.pathname + redirect.search);
