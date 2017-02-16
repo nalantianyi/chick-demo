@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
     createStoreWithMiddleware = compose(applyMiddleware(thunk, asyncMiddleware))(createStore);
 } else {
     createStoreWithMiddleware = compose(applyMiddleware(thunk, asyncMiddleware), typeof window === 'object'
-    && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtensions() : f => f)(createStore);
+    && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f)(createStore);
 }
 export default function configureStore(initialState) {
     const store = createStoreWithMiddleware(rootReducer, initialState);

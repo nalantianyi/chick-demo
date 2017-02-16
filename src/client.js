@@ -6,7 +6,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {match, Router, broswerHistory} from 'react-router';
-import {configureStore} from './utils/configureStore';
+import configureStore from './utils/configureStore';
 import getRoutes from './routes';
 
 const initialState = window.__INITIAL_STATE__;
