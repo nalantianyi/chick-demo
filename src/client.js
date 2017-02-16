@@ -25,8 +25,7 @@ match({history, routes}, (err, redirect, renderProps) => {
         console.error(err.stack);
     }
     else {
-        render(
-            <Provider store={store}>
+        render(<Provider store={store}>
                 <Router {...renderProps}></Router>
             </Provider>
             , rootElement);

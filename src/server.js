@@ -32,43 +32,45 @@ app.use('/api', (req, res) => {
 });
 
 app.use((req, res) => {
+    global.__COOKIE__=req.get('cookie');
     if (process.env.NODE_ENV !== 'production') {
         webpackIsophicTools.refresh();
     }
-});
+    const store = configureStore();
+    const routes = getRouters(store);
 
-const store = configureStore();
-const routes = getRouters(store);
-
-function hydrateOnClient() {
-    res.send('<!doctype html\n' +
-        renderToString(<html assets={webpackIsophicTools.assets()} store={store}></html>));
-};
-if (__DISABLE_SSR__) {
-    hydrateOnClient();
-    return;
-}
-match({routes, location: req.url}, (err, redirect, renderProps) => {
-    if (redirect) {
-        res.redirect(redirect.pathname + redirect.search);
-    }
-    else if (err) {
-        res.status(500);
-        hydrateOnClient();
-        console.error('ROUTER ERROR:', err.stack);
-    }
-    else if (renderProps) {
-        res.status(200);
-        const component = (<Provider store={store}>
-            <RouterContext {...renderProps}></RouterContext>
-        </Provider>);
+    function hydrateOnClient() {
         res.send('<!doctype html>\n' +
-            renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}></Html>));
+            renderToString(<html assets={webpackIsophicTools.assets()} store={store}></html>));
+    };
+    if (__DISABLE_SSR__) {
+        hydrateOnClient();
+        return;
     }
-    else {
-        res.status(404).send('Not found');
-    }
+    match({routes, location: req.url}, (err, redirect, renderProps) => {
+        if (redirect) {
+            res.redirect(redirect.pathname + redirect.search);
+        }
+        else if (err) {
+            res.status(500);
+            hydrateOnClient();
+            console.error('ROUTER ERROR:', err.stack);
+        }
+        else if (renderProps) {
+            res.status(200);
+            const component = (<Provider store={store}>
+                <RouterContext {...renderProps}></RouterContext>
+            </Provider>);
+            res.send('<!doctype html>\n' +
+                renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}></Html>));
+        }
+        else {
+            res.status(404).send('Not found');
+        }
+    });
 });
+
+
 app.listen(port, (error) => {
     if (error) {
         console.error(error);
