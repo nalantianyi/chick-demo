@@ -11,7 +11,7 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {Provider} from 'react-redux';
 import {match, RouterContext} from 'react-router';
-import configureStore from './untils/configureStore';
+import configureStore from './utils/configureStore';
 import getRouters from './routes';
 import Html from './utils/Html';
 import config from './config';
