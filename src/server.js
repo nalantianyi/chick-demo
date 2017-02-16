@@ -34,7 +34,7 @@ app.use('/api', (req, res) => {
 app.use((req, res) => {
     global.__COOKIE__=req.get('cookie');
     if (process.env.NODE_ENV !== 'production') {
-        webpackIsophicTools.refresh();
+        webpackIsomorphicTools.refresh();
     }
     const store = configureStore();
     const routes = getRouters(store);
