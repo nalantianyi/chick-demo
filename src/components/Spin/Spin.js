@@ -16,6 +16,6 @@ function Spin(props) {
 Spin.propTypes = {
     loadingNumber: PropTypes.number.isRequired
 };
-export default connect(state => {
+export default connect(state => ({
     loadingNumber:state.async.loadingNumber || 0
-})(Spin);
+}))(Spin);
